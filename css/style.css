@@ -81,8 +81,6 @@ button { cursor: pointer; }
   content: ""; position: absolute; left: 50%; top: 3px; bottom: 3px; width: 2px;
   background: var(--canvas); transform: translateX(-50%);
 }
-.privacy { font-size: 12px; line-height: 16px; color: var(--mute); display: flex; align-items: center; gap: 6px; }
-.privacy .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
 
 /* ── Hero ─────────────────────────────── */
 .hero { padding: var(--s-3xl) 0 var(--s-xl); }
