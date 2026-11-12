@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>影片切割</title>
+  <meta name="description" content="在瀏覽器裡把大影片切成指定大小的 MP4，不上傳、不重新編碼。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23171717'/%3E%3Crect x='11' y='4' width='2' height='16' fill='%23fff'/%3E%3C/svg%3E">
+</head>
+<body>
+  <div class="shell">
+    <header class="top">
+      <div class="wordmark"><span class="mark" aria-hidden="true"></span>影片切割</div>
+      <div class="privacy"><span class="dot" aria-hidden="true"></span>檔案不會上傳，全部在你的瀏覽器裡完成</div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-heading">
+        <h1 id="hero-heading">把大影片切成剛好能上傳的大小</h1>
+        <p>選一個 MP4 或 MOV，設定每段上限，幾秒內就切好。不重新編碼，畫質和原檔一樣。</p>
+      </section>
+
+      <section aria-label="選擇影片">
+        <label class="drop" id="drop" for="file-input" tabindex="0">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 16V4m0 0l-4 4m4-4l4 4"/><path d="M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
+          </span>
+          <strong>拖曳影片到這裡，或點擊選擇</strong>
+          <small>支援 MP4、MOV（H.264 / HEVC）</small>
+          <input id="file-input" type="file" accept="video/mp4,video/quicktime,.mp4,.mov,.m4v" aria-label="選擇影片檔">
+        </label>
+
+        <div class="setting">
+          <label class="title" for="size-input">每段上限</label>
+          <div class="presets" role="group" aria-label="常用大小">
+            <button type="button" class="chip" data-mb="100">100 MB</button>
+            <button type="button" class="chip" data-mb="500" aria-pressed="true">500 MB</button>
+            <button type="button" class="chip" data-mb="1000">1 GB</button>
+            <button type="button" class="chip" data-mb="2000">2 GB</button>
+          </div>
+          <div class="size-input" id="size-wrap">
+            <input id="size-input" type="number" inputmode="numeric" min="10" max="4000" step="1" value="500" aria-describedby="size-help">
+            <span class="unit">MB</span>
+          </div>
+          <span id="size-help" hidden>10 到 4000 之間的整數</span>
+        </div>
+      </section>
+
+      <section class="file" id="file-card" aria-live="polite">
+        <div class="file-head">
+          <div>
+            <div class="name" id="file-name"></div>
+            <div class="meta" id="file-meta"></div>
+          </div>
+          <button type="button" class="btn btn-sm change" id="btn-change">換一個</button>
+        </div>
+        <div class="plan">
+          <div class="count" id="plan-count"></div>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="btn-start">開始切割</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="note note-error" id="note-error" role="alert"></div>
+
+      <section class="segments" id="segments" aria-label="切割進度">
+        <div class="status">
+          <span class="label" id="status-label"></span>
+          <span class="pct" id="status-pct"></span>
+        </div>
+        <div class="bar" id="bar"><i id="bar-fill"></i></div>
+        <ol class="seg-list" id="seg-list"></ol>
+        <div class="note note-info" id="note-done"></div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <span>以 <code>FFmpeg</code>（WebAssembly）在本機切割，影片不離開電腦</span>
+      <span>不重新編碼，速度快、畫質不變</span>
+      <span>建議使用電腦版 Chrome、Edge 或 Firefox</span>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/mp4box@0.5.2/dist/mp4box.all.min.js"></script>
+  <script src="js/split-plan.js"></script>
+  <script src="js/mp4-index.js"></script>
+  <script src="js/splitter.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
